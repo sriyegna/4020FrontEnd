@@ -28,6 +28,8 @@ const DatePicker = (props) => {
         KeyboardButtonProps={{
           "aria-label": "change date",
         }}
+        minDate={new Date("2020-01-13T00:00:00")}
+        maxDate={new Date("2020-11-21T00:00:00")}
       />
     </MuiPickersUtilsProvider>
   );

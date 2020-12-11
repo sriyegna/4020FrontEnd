@@ -6,22 +6,34 @@ import CovidTable from "../covidTable/CovidTable";
 import DatePicker from "../datePicker/DatePicker";
 import { MOBILITY_OPTIONS } from "../../utils/constants";
 import Server from "../../utils/Server";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setObj,
+  setArr,
+  clearObj,
+  clearArr,
+  setLoading,
+  clearLoading,
+} from "../../redux/actions/mobility";
 
 const TablePanel = (props) => {
   const { changeCountry, country } = props;
+  const dispatch = useDispatch();
 
   const [selectedMobility, setSelectedMobility] = React.useState([
     ...MOBILITY_OPTIONS,
   ]);
 
   const [fromDate, setFromDate] = React.useState(
-    new Date("2020-03-01T00:00:00")
+    new Date("2020-01-13T00:00:00")
   );
-  const [toDate, setToDate] = React.useState(new Date());
+  const [toDate, setToDate] = React.useState(new Date("2020-11-21T00:00:00"));
 
   const [search, setSearch] = React.useState("");
 
-  const [data, setData] = React.useState([]);
+  // const [data, setData] = React.useState([]);
+  const data = useSelector((state) => state.data.arr);
+  const loading = useSelector((state) => state.data.loading);
   const [filteredData, setFilteredData] = React.useState([]);
 
   const updateCountry = (response) => {
@@ -34,18 +46,27 @@ const TablePanel = (props) => {
         walking: value.walking,
       });
     }
-    setData(data);
+    // setData(data);
+    dispatch(setArr(data));
   };
 
   React.useEffect(() => {
+    dispatch(clearObj());
+    dispatch(clearArr());
+    dispatch(setLoading());
     Server.get(
       `/mobility/apple?countryName=${country}&fromDate=${fromDate}&toDate=${toDate}`
     )
       .then((response) => {
         updateCountry(response.data.regions);
+        dispatch(setObj(response.data));
+        dispatch(clearLoading());
       })
       .catch((e) => {
         console.log(e);
+        dispatch(clearArr());
+        dispatch(clearObj());
+        dispatch(clearLoading());
       });
   }, [fromDate, toDate, country]);
 
@@ -107,7 +128,11 @@ const TablePanel = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Box m={2}>
-            <CovidTable data={filteredData} options={[...selectedMobility]} />
+            <CovidTable
+              data={filteredData}
+              options={[...selectedMobility]}
+              loading={loading}
+            />
           </Box>
         </Grid>
       </Grid>

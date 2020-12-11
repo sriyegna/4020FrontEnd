@@ -80,5 +80,12 @@ svg {
 }
 
 .svgMapClass {
-  margin: 10%;
+  max-height: 600px;
+  margin-top: 25px;
+}
+
+.iframeClass {
+  width: 80%;
+  height: 80vh;
+  margin-left: 10%;
 }

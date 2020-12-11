@@ -7,7 +7,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -98,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CovidTable = (props) => {
-  const { data, options } = props;
+  const { data, options, loading } = props;
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("region");
@@ -134,28 +136,36 @@ const CovidTable = (props) => {
               headCells={headCells}
             />
             <TableBody>
-              {stableSort(data, getComparator(order, orderBy)).map(
-                (row, index) => {
-                  const labelId = `enhanced-table-checkbox-${index}`;
+              {!loading ? (
+                stableSort(data, getComparator(order, orderBy)).map(
+                  (row, index) => {
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow hover tabIndex={-1} key={row.region}>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.region}
-                      </TableCell>
-                      {options.map((option) => (
-                        <TableCell key={option} align="right">
-                          {row[option.toLowerCase()]}
+                    return (
+                      <TableRow hover tabIndex={-1} key={row.region}>
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
+                          {row.region}
                         </TableCell>
-                      ))}
-                    </TableRow>
-                  );
-                }
+                        {options.map((option) => (
+                          <TableCell key={option} align="right">
+                            {row[option.toLowerCase()]}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    );
+                  }
+                )
+              ) : (
+                <TableCell colSpan={options.length + 1}>
+                  <Box display="flex" justifyContent="center" height={50}>
+                    <CircularProgress disableShrink />
+                  </Box>
+                </TableCell>
               )}
             </TableBody>
           </Table>
