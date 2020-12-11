@@ -92,7 +92,7 @@ const MapChart = (props) => {
         </Typography>
       ) : null}
       <Typography align="center">
-        Data is based on a base value of 100 taken on 2020/01/13.
+        Data is relative to a base value of 100 taken on 2020/01/13.
       </Typography>
       <Typography align="center">
         Minimum value for {metric} in the date range selected is{" "}

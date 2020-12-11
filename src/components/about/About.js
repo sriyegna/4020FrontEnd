@@ -52,7 +52,8 @@ const About = () => {
         <DialogTitle id="scroll-dialog-title">About</DialogTitle>
         <DialogContent dividers={true}>
           <Typography>
-            This is a visualization to visualize stuff.... More dummy text....
+            This website features a dashboard showing how mobility has been
+            affected during the COVID-19 pandemic.
           </Typography>
           <Box my={2}>
             <TableContainer component={Paper} elevation={3}>
@@ -66,19 +67,19 @@ const About = () => {
                 <TableBody>
                   <TableRow>
                     <TableCell>Driving</TableCell>
-                    <TableCell>Description 1</TableCell>
+                    <TableCell>
+                      Cars, trucks, and other road vehicles.
+                    </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Public Transit</TableCell>
-                    <TableCell>Description 1</TableCell>
+                    <TableCell>
+                      Busses, trains, and other publi transit vehicles.
+                    </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>Walking</TableCell>
-                    <TableCell>Description 1</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Emissions</TableCell>
-                    <TableCell>Description 1</TableCell>
+                    <TableCell>Individuals walking information</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>

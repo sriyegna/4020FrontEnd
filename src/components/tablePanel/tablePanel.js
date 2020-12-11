@@ -1,6 +1,6 @@
 import React from "react";
 import MultiSelect from "../inputs/select/MultiSelect";
-import { Grid, Button, Box } from "@material-ui/core";
+import { Grid, Button, Box, Typography, Link } from "@material-ui/core";
 import Search from "../inputs/search/Search";
 import CovidTable from "../covidTable/CovidTable";
 import DatePicker from "../datePicker/DatePicker";
@@ -133,6 +133,23 @@ const TablePanel = (props) => {
               options={[...selectedMobility]}
               loading={loading}
             />
+            {!loading ? (
+              <>
+                {country === "Canada" ? (
+                  <Typography align="center" variant="h6">
+                    *No data is available for Nunavut*
+                  </Typography>
+                ) : null}
+                <Typography align="center">
+                  Data is relative to a base value of 100 taken on 2020/01/13.
+                </Typography>
+                <Typography align="center">
+                  <Link href="https://covid19.apple.com/mobility">
+                    *Data is based on Apple Mobility Data.*
+                  </Link>
+                </Typography>
+              </>
+            ) : null}
           </Box>
         </Grid>
       </Grid>
