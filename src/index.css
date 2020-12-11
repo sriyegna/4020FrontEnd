@@ -78,3 +78,7 @@ svg {
 .usa_heat_9 {
   fill: hsla(241, 100%, 10%, 1);
 }
+
+.svgMapClass {
+  margin: 10%;
+}

@@ -53,8 +53,12 @@ const MapChart = (props) => {
   };
 
   return (
-    <div className="examples__block__map examples__block__map--usa">
+    <div
+      className="examples__block__map examples__block__map--usa"
+      style={{ width: "100%" }}
+    >
       <SVGMap
+        className="svgMapClass"
         map={map}
         locationClassName={getLocationClassName}
         onLocationMouseOver={handleLocationMouseOver}
